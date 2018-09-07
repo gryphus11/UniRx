@@ -1,14 +1,14 @@
 더욱 정확한 설명을 하자면, [SUbject는 IObserver 인터페이스와 IObservable 인터페이스 2가지를 상속하고 있습니다.] 라는 표현이 되겠습니다.
 
-IObserver 인터페이스
-	이벤트 메시지를 발행 가능.
-	OnNext : 위에 설명.
-	OnError : 발생된 에러를 통지하는 메서드.
-	OnCompleted : 메시지 발행이 완료된 것을 통지하는 메서드.
+IObserver 인터페이스<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이벤트 메시지를 발행 가능.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OnNext : 위에 설명.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OnError : 발생된 에러를 통지하는 메서드.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OnCompleted : 메시지 발행이 완료된 것을 통지하는 메서드.<br>
 
-IObservable 인터페이스
-	이벤트 메시지를 구독 가능.
-	Subscribe
+IObservable 인터페이스<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이벤트 메시지를 구독 가능.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscribe<br>
 
 여기서 위화감이 들 수도 있다.
 
