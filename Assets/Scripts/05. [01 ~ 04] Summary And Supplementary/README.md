@@ -74,5 +74,11 @@ UniRx 사용시 Subscribe 에는 복수의 오버로드가 존재합니다.<br>
       퍼포먼스의 저하, 메모리 누수, NullReferenceException 을 발생시킬 가능성 있음.</li>
       </ul>
     </li>
+    <li>스트림의 수명 관리는 세심한 주의를 기울이고, 사용이 끝나면 반드시 Dispose를 호출, 또는 OnCompleted를 발행하는 습관을 들일것.</li>
+    <li>AddTo(GameObject) : 지정 게임오브젝트가 Destroy 되면 자동적으로 Dispose 를 호출해주는 기능.
+      <ul>
+        <li>ex) subject.Where(...).Subscribe(...).AddTo(gameobject);</li>
+      </ul>
+    </li>
   </ul>
 </p>
