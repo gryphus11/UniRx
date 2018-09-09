@@ -21,3 +21,14 @@ UniRx 사용시 Subscribe 에는 복수의 오버로드가 존재합니다.<br>
 &emsp;&emsp;● Subscribe(Action onNext, Action onError) ------------------ OnNext + OnError<br>
 &emsp;&emsp;● Subscribe(Action onNext, Action onCompleted) ----------- OnNext + OnCompleted<br>
 &emsp;&emsp;● Subscribe(Action onNext, Action onError, Action onCompleted) -- 전부<br>
+&emsp;&emsp;● Subscribe 는 IDisposable 을 반환하도록 되어 있습니다. 리소스의 개방을 수행하도록 하는 메서드 입니다.<br>
+&emsp;&emsp;&nbsp;&nbsp;&nbsp;Subscribe 메서드가 반환하는 IDisposable 의 Dispose 를 실행하면 스트림의 구독을 종료할수 있습니다.<br>
+&emsp;&emsp;&nbsp;&nbsp;&nbsp;Subscribe IDisposable 에 Subscribe 를 기억하도록 하여 특정 스트림만 종료되도록 하기도 가능.<br>
+<p>
+&emsp;&emsp;ex)<br>
+&emsp;&emsp;IDisposable disposable1 = integerSubject.Subscribe(<br>
+&emsp;&emsp;&emsp;&emsp;x => Debug.Log("Subscribe1 : " + x), () => Debug.Log("Completed1"));<br><br>
+&emsp;&emsp;IDisposable disposable2 = integerSubject.Subscribe(<br>
+&emsp;&emsp;&emsp;&emsp;x => Debug.Log("Subscribe2 : " + x), () => Debug.Log("Completed2"));<br><br>
+&emsp;&emsp;disposable1.Dispose();<br>
+</p>
