@@ -163,7 +163,13 @@
           </li>
         </ul>
       </li>
+      <li><h2>UniRx.Triggers 시리즈</h2>
+        UniRx.Triggers 는, using UniRx.Triggers; 로 이용가능한 스트림 소스 입니다. Unity 의 콜백 이벤트를 UniRx 의 IObservable 에 
+        변환하여 제공해 줍니다. UniRx 에는 이것이 가장 중요하고 편리하다 생각합니다.<br>
+        Triggers 는 수가 매우 많아 링크를 참고해 주세요. <a href="https://github.com/neuecc/UniRx/wiki/UniRx.Triggers">UniRx.Triggers</a>
+        유니티가 제공하는 대부분의 콜백 이벤트를 스트림으로써 취득가능하게 되었고, GameObject가 Destroy된 때에 OnCompleted 를 자동적으로 
+        발행해주어 수명관리의 걱정도 없습니다.
+      </li>
     </ul>
   </li>
 </ul>
-ㄴ
