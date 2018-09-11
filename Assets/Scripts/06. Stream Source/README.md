@@ -1,4 +1,4 @@
-<ol>
+<ul>
   <li><h1>스트림의 소스(메시지 발행원)란?</h1>
     <ul>
       <li>
@@ -50,7 +50,7 @@
           </tr>
           <tr>
             <td>AsyncSubject&ltT&gt</td>
-            <td>OnNext 값을 즉시 발행하지 않고 내부에 캐시하여, OnCOmpleted() 가 실행된 타이밍에 가장 마지막의 OnNext 를 1개만 발행<br>
+            <td>OnNext 값을 즉시 발행하지 않고 내부에 캐시하여, OnCompleted() 가 실행된 타이밍에 가장 마지막의 OnNext 를 1개만 발행<br>
                 Future 나 Promise 같은것. 비동기로 처리를 하고 결과를 끝날무렵 꺼내고 싶을 때에 사용할수 있다.
             </td>
           </tr>
@@ -103,6 +103,8 @@
           </li>
         </ul>
       </li>
+      <li><h2>팩토리 메서드 </h2>
+      </li>
     </ul>
   </li>
-</ol>
+</ul>
