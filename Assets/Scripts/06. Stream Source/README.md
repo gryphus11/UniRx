@@ -11,13 +11,13 @@
         이번에는 스트림의 발단이되는 스트림 소스에 대해 소개합니다.
       </li>
     </ul>
-  </li><br>  
+  </li>
   
-  <li><h1>스트림 소스가 되는 것들</h1><br>
+  <li><h1>스트림 소스가 되는 것들</h1>
     스트림 소스를 사용하는 방법은 몇 가지 존재합니다. UniRx 에 준비된 스트림 소스를 이용할 수도 있고,<br>
     물론 자신이 스트림 소스를 직접 만드는 것도 가능합니다. UniRx 를 이용하는 경우는 다음과 같습니다.
     <ul>
-      <li>Subject 시리즈</l2>
+      <li>Subject 시리즈</l>
       <li>ReactiveProperty 시리즈</li>
       <li>팩토리 메서드 시리즈</li>
       <li>UniRx.Triggers 시리즈</li>
@@ -103,8 +103,67 @@
           </li>
         </ul>
       </li>
-      <li><h2>팩토리 메서드 </h2>
+      <li><h2>팩토리 메서드 시리즈</h2>
+        팩토리 메서드란, UniRx 가 제공하고 있는 스트림 소스 구축 메서드의 집합 입니다.<br>
+        Subject 만으로는 표현할 수 없는 복잡한 스트림을 간단히 만드는 것이 가능한 경우가 있습니다.<br>
+        Unity 에서 UniRx 를 이용하는 경우는 팩토리 메서드를 이용할 기회는 별로 없을지도 모르지만,<br>
+        어딘가엔 도움이 될거라 생각하므로 배워두는게 좋을 것입니다.<br>
+        단, 팩토리 메서드는 수가 많기 때문에, 이용 빈도가 높은 것을 발췌하여 소개합니다.<br>
+        자세한 사항은 링크를 참고 : 
+        <a href="http://reactivex.io/documentation/ko/operators.html">ReactiveX Creating Observables</a><br>
+        <ul>
+          <li><h3>Observable.Create&ltT&gt</h3>
+            <ul>
+              <li>자유롭게 값을 발행할 수 있는 팩토리 메서드 입니다.</li>
+              <li>Observable.Create 는 인수로 Func<IObserver<T>, IDisposable> 
+                (IObserver<T> 을 받아서 IDisposable 을 반환하는 함수)<br>
+                를 가집니다.</li>
+              <li>사용 예<br>
+                Observable.Create&ltT&gt(observer =&gt<br>
+                {<br>
+                &emsp;&emsp;// 내용<br>
+                &emsp;&emsp;observer.OnCompleted();<br>
+                &emsp;&emsp;return Disposable.Create(() =&gt<br>
+                &emsp;&emsp;{<br>
+                &emsp;&emsp;&emsp;&emsp;// 내용<br>
+                &emsp;&emsp;});<br>
+                }).Subscribe( //내용 );</li>
+            </ul>
+          </li>
+          <li><h3>Observable.Start</h3>
+            <ul>
+              <li>주어진 블록을 별개의 스레디에서 실행하고 결과를 1개만 발행하는 팩토리 메서드 입니다.</li>
+              <li>비동기로 무언가 처리하고, 결과가 나오면 통지하고 싶은 때에 이용할 수 있습니다.</li>
+              <li>사용 예<br>
+                Observable.Start(() =&gt<br>
+                {<br>
+                &emsp;&emsp;// 비동기 처리 작업 내용
+                })<br>
+                .ObserveOnMainThread() // 반드시!!! 메인 스레드로 오기위해 사용할것.<br>
+                .Subscribe(<br>
+                &emsp;&emsp;// 비동기 처리후 작업 내용<br>
+                );<br>
+              </li>
+              <li>주의할점이 있습니다. Observable.Start 는 처리를 별개의 스레드에서 실행해 그 스레드로부터 그대로 Subscribe 내의 함수를 실행합                 니다. 이것은 스레드 세이프가 아닌 Unity 에 대해서 문제를 일으킬 수 있어 주의할 필요가 있습니다.</li>
+              <li>메시지를 별개의 스레드로부터 메인 스레드로 전환하고싶은 경우, ObserveOnMainThread 라는 오퍼레이터를 이용합시다. 
+                이 오퍼레이터를 끼움으로써, 이 오퍼레이터 이후 Unity 의 메인 스레드에서 실행되도록 변환합니다.</li>
+            </ul>
+          </li>
+          <li><h3>Observable.Timer/TimerFrame</h3>
+            <ul>
+              <li>Observable.Timer 는 일정시간 후에 메시지를 발행하는 심플한 팩토리 메서드 입니다.</li>
+              <li>실시간으로 지정할 경우는 Timer 를, Unity 의 프레임 수로 지정할 경우는 TimerFrame 을 이용합니다.</li>
+              <li>Timer / TimerFrame 은 인수에 따라 동작이 다릅니다. 1개만 지정한 경우 OneShot 과 같은 동작으로 종료하고,
+              2개를 지정한 경우는 정기적으로 메시지를 발행하는 동작이 됩니다. 또, 스케쥴러로 실행할 스레드를 지정하는 것도 가능합니다.</li>
+              <li>비슷한 팩토리 메서드로 Observable.Interval/IntervalFrame 이 존재합니다. 이쪽은 Timer/TimerFrame 의 2개의 인수를 
+                지정하는 경우의 생략판 같이 되어 있습니다. Interva/IntervalFrame 에는 타이머를 기동하기까지의 대기 시간을 
+                입력할 수 없습니다.</li>
+              <li>Timer TimerFrame 을 정기적 실행을 할 경우, Dispose 하는것을 잊지 않도록 충분히 주의할 필요가 있습니다.</li>
+            </ul>
+          </li>
+        </ul>
       </li>
     </ul>
   </li>
 </ul>
+ㄴ
