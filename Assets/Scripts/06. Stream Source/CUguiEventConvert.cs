@@ -8,10 +8,10 @@ using UniRx.Triggers;
 public class CUguiEventConvert : MonoBehaviour {
 
     [SerializeField]
-    private Button testButton1 = null;
+    private Button leftButton = null;
 
     [SerializeField]
-    private Button testButton2 = null;
+    private Button rightButton = null;
 
     [SerializeField]
     private Text buttonLog = null;
@@ -26,7 +26,7 @@ public class CUguiEventConvert : MonoBehaviour {
     private Text inputFieldLog = null;
 
     [SerializeField]
-    private Text editLog = null;
+    private Text endEditLog = null;
 
     [SerializeField]
     private Slider testSlider = null;
@@ -34,19 +34,17 @@ public class CUguiEventConvert : MonoBehaviour {
     [SerializeField]
     private Text sliderLog = null;
 
-    private StringReactiveProperty buttonLogProperty = new StringReactiveProperty(string.Empty);
-
 	// Use this for initialization
 	void Start () {
 
-        testButton1.OnClickAsObservable()
+        leftButton.OnClickAsObservable()
             .Subscribe(_ => Debug.Log("버튼1 클릭됨."));
 
-        testButton2.OnClickAsObservable()
+        rightButton.OnClickAsObservable()
             .Subscribe(_ => Debug.Log("버튼2 클릭됨."));
 
-        testButton1.OnClickAsObservable()
-            .ZipLatest(testButton2.OnClickAsObservable(), (b1, b2) => "Clicked!")
+        leftButton.OnClickAsObservable()
+            .ZipLatest(rightButton.OnClickAsObservable(), (b1, b2) => "Clicked!")
             .Repeat()
             .Subscribe(x => 
             {
@@ -58,6 +56,7 @@ public class CUguiEventConvert : MonoBehaviour {
         clickStream.Buffer(clickStream.Throttle(System.TimeSpan.FromMilliseconds(200)))
             .Where(x => x.Count >= 2)
             .Subscribe(_ => Debug.Log("더블클릭!"));
+
         // 아래 두개의 차이는, Subscribe 시에 현재의 값을 초기값으로 발행하는가 아닌가에 있음.
         // Subscribe 시에 초기값이 필요하다면 전자를 사용할것.
         testInputField.OnValueChangedAsObservable().Subscribe(text => 
@@ -74,7 +73,7 @@ public class CUguiEventConvert : MonoBehaviour {
         testInputField.OnEndEditAsObservable().Subscribe(text => 
         {
             Debug.Log("수정중 : " + text);
-            editLog.text = "End Edit Log : " + text;
+            endEditLog.text = "End Edit Log\n" + text;
         });
         
 

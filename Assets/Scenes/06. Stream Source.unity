@@ -1481,7 +1481,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EditLog
+  m_Text: End Edit Log
 --- !u!222 &1036756525
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2380,13 +2380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ec3bc93573cb0479d86e25840d49c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testButton1: {fileID: 852904189}
-  testButton2: {fileID: 2049855063}
+  leftButton: {fileID: 852904189}
+  rightButton: {fileID: 2049855063}
   buttonLog: {fileID: 1636554310}
   testInputField: {fileID: 208579875}
   initInputFieldLog: {fileID: 178425459}
   inputFieldLog: {fileID: 806624117}
-  editLog: {fileID: 1036756524}
+  endEditLog: {fileID: 1036756524}
   testSlider: {fileID: 1045718638}
   sliderLog: {fileID: 393515847}
 --- !u!4 &1739936791
